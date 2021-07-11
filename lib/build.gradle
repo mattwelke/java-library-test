@@ -29,6 +29,47 @@ dependencies {
 }
 
 publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'java-test-library'
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = "Matt's Test My Library"
+                description = 'Testing using Gradle, GitHub Actions, and GitHub Packages to make and publish a Java library.'
+                url = 'https://github.com/mattwelke/java-library-test'
+                properties = [
+                    myProp: "value",
+                    "prop.with.dots": "anotherValue"
+                ]
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'mattwelke'
+                        name = 'Matt Welke'
+                        email = 'mattwelke@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'https://github.com/mattwelke/java-library-test.git'
+                    developerConnection = 'git@github.com:mattwelke/java-library-test.git'
+                    url = 'https://github.com/mattwelke/java-library-test'
+                }
+            }
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"
